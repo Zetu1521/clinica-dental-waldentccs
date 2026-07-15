@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Clínica Dental</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a237e, #0d47a1);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+        .login-container h1 {
+            color: #1a237e;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .login-container h1 span {
+            color: #64b5f6;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #64b5f6;
+        }
+        .btn-login {
+            width: 100%;
+            background: linear-gradient(135deg, #1a237e, #0d47a1);
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .btn-login:hover {
+            transform: scale(1.02);
+        }
+        .message {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+        }
+        .message.error {
+            display: block;
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .message.success {
+            display: block;
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .register-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .register-link a {
+            color: #0d47a1;
+            text-decoration: none;
+        }
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>🦷 <span>Clínica</span> Dental</h1>
+        <h2 style="text-align:center; font-size:18px; color:#666; margin-bottom:20px;">Iniciar Sesión</h2>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label>📧 Correo Electrónico</label>
+                <input type="email" id="email" placeholder="admin@clinica.com" required>
+            </div>
+            <div class="form-group">
+                <label>🔒 Contraseña</label>
+                <input type="password" id="password" placeholder="admin123" required>
+            </div>
+            <button type="submit" class="btn-login">🔐 Iniciar Sesión</button>
+            <div id="message" class="message"></div>
+        </form>
+        
+        <div class="register-link">
+            <a href="#" onclick="mostrarRegistro()">¿No tienes cuenta? Regístrate aquí</a>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+
+        // Login
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const messageDiv = document.getElementById('message');
+
+            try {
+                const response = await fetch(`${API_URL}/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    messageDiv.className = 'message success';
+                    messageDiv.textContent = '✅ Login exitoso. Redirigiendo...';
+                    messageDiv.style.display = 'block';
+                    
+                    setTimeout(() => {
+                        window.location.href = '/admin.html';
+                    }, 1000);
+                } else {
+                    messageDiv.className = 'message error';
+                    messageDiv.textContent = `❌ ${data.error || 'Error al iniciar sesión'}`;
+                    messageDiv.style.display = 'block';
+                }
+            } catch (error) {
+                messageDiv.className = 'message error';
+                messageDiv.textContent = '❌ Error de conexión. Asegúrate que el servidor esté corriendo.';
+                messageDiv.style.display = 'block';
+            }
+        });
+
+        function mostrarRegistro() {
+            alert('📝 Para registrarte, contacta al administrador.\n\nO usa las credenciales:\nEmail: admin@clinica.com\nContraseña: admin123');
+        }
+
+        // Verificar si ya hay sesión activa
+        async function verificarSesion() {
+            try {
+                const response = await fetch(`${API_URL}/verificar`, {
+                    credentials: 'include'
+                });
+                if (response.ok) {
+                    window.location.href = '/admin.html';
+                }
+            } catch (error) {
+                // No hay sesión, todo bien
+            }
+        }
+        verificarSesion();
+    </script>
+</body>
+</html>

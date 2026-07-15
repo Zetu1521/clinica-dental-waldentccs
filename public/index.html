@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clínica Dental - Odontología Premium</title>
+    <style>
+        /* ============ ESTILOS GENERALES ============ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ============ HEADER / NAVEGACIÓN ============ */
+        header {
+            background: linear-gradient(135deg, #1a237e, #0d47a1);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: #64b5f6;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 8px 12px;
+            border-radius: 5px;
+        }
+
+        .nav-links a:hover {
+            color: #64b5f6;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .btn-login {
+            background: #64b5f6;
+            color: #1a237e !important;
+            font-weight: bold !important;
+        }
+
+        .btn-login:hover {
+            background: #42a5f5 !important;
+            color: #0d47a1 !important;
+        }
+
+        /* ============ SECCIÓN HERO ============ */
+        .hero {
+            background: linear-gradient(135deg, #1a237e, #0d47a1);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            border-bottom: 5px solid #64b5f6;
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+
+        .hero .btn {
+            display: inline-block;
+            background: #64b5f6;
+            color: #1a237e;
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .hero .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(100, 181, 246, 0.4);
+        }
+
+        /* ============ SECCIÓN DOCTORES ============ */
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #1a237e;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: #64b5f6;
+            margin: 10px auto 0;
+        }
+
+        .doctors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .doctor-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .doctor-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .doctor-card .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: #e3f2fd;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: #0d47a1;
+        }
+
+        .doctor-card h3 {
+            color: #1a237e;
+            margin-bottom: 5px;
+        }
+
+        .doctor-card .specialty {
+            color: #64b5f6;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .doctor-card .instagram {
+            display: inline-block;
+            color: #1a237e;
+            text-decoration: none;
+            font-weight: 500;
+            margin-top: 10px;
+            transition: color 0.3s;
+        }
+
+        .doctor-card .instagram:hover {
+            color: #64b5f6;
+        }
+
+        /* ============ SECCIÓN TRATAMIENTOS ============ */
+        .treatments-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .treatment-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-left: 4px solid #64b5f6;
+            transition: transform 0.3s;
+        }
+
+        .treatment-card:hover {
+            transform: scale(1.03);
+        }
+
+        .treatment-card .price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0d47a1;
+            margin-top: 10px;
+        }
+
+        /* ============ FORMULARIO DE CITAS ============ */
+        .form-container {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 600px;
+            margin: 0 auto;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #1a237e;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #64b5f6;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, #1a237e, #0d47a1);
+            color: white;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .btn-submit:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 20px rgba(13, 71, 161, 0.4);
+        }
+
+        /* ============ MENSAJE DE ÉXITO ============ */
+        .message {
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .message.success {
+            display: block;
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            display: block;
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* ============ FOOTER ============ */
+        footer {
+            background: #1a237e;
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+        }
+
+        /* ============ CHATBOT FLOTANTE ============ */
+        .chatbot-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #1a237e, #0d47a1);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+            z-index: 999;
+        }
+
+        .chatbot-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .chatbot-window {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 380px;
+            max-height: 500px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.3);
+            display: none;
+            flex-direction: column;
+            z-index: 999;
+            overflow: hidden;
+        }
+
+        .chatbot-window.open {
+            display: flex;
+        }
+
+        .chatbot-header {
+            background: linear-gradient(135deg, #1a237e, #0d47a1);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chatbot-header .close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .chatbot-messages {
+            padding: 15px;
+            flex: 1;
+            overflow-y: auto;
+            max-height: 350px;
+            background: #f8f9fa;
+        }
+
+        .chatbot-messages .message {
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            border-radius: 15px;
+            max-width: 80%;
+            display: none;
+        }
+
+        .chatbot-messages .message.bot {
+            background: #e3f2fd;
+            color: #1a237e;
+            margin-right: auto;
+        }
+
+        .chatbot-messages .message.user {
+            background: #0d47a1;
+            color: white;
+            margin-left: auto;
+        }
+
+        .chatbot-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .chatbot-input input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            margin-right: 10px;
+        }
+
+        .chatbot-input button {
+            background: #0d47a1;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 480px) {
+            .chatbot-window {
+                width: 90%;
+                right: 5%;
+                bottom: 90px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============ HEADER ============ -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">🦷 Clínica<span>Dental</span></div>
+                <ul class="nav-links">
+                    <li><a href="#home">Inicio</a></li>
+                    <li><a href="#doctores">Doctores</a></li>
+                    <li><a href="#tratamientos">Tratamientos</a></li>
+                    <li><a href="#cita">Agendar Cita</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                    <li><a href="/login.html" class="btn-login">🔐 Iniciar Sesión</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ============ HERO ============ -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Sonrisas Perfectas, Vidas Felices</h1>
+            <p>Somos una clínica odontológica de vanguardia, comprometida con tu salud bucal y tu confianza. Tecnología de punta y profesionales altamente calificados.</p>
+            <a href="#cita" class="btn">📅 Agenda tu Cita</a>
+        </div>
+    </section>
+
+    <!-- ============ DOCTORES ============ -->
+    <section id="doctores" class="section">
+        <div class="container">
+            <h2 class="section-title">Nuestros Especialistas</h2>
+            <div id="doctoresContainer" class="doctors-grid">
+                <!-- Los doctores se cargarán aquí desde la base de datos -->
+                <div style="text-align:center; grid-column:1/-1; color:#666;">
+                    Cargando doctores...
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ TRATAMIENTOS ============ -->
+    <section id="tratamientos" class="section" style="background:#f0f4f8;">
+        <div class="container">
+            <h2 class="section-title">Nuestros Tratamientos</h2>
+            <div id="tratamientosContainer" class="treatments-grid">
+                <!-- Los tratamientos se cargarán aquí desde la base de datos -->
+                <div style="text-align:center; grid-column:1/-1; color:#666;">
+                    Cargando tratamientos...
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ AGENDAR CITA ============ -->
+    <section id="cita" class="section">
+        <div class="container">
+            <h2 class="section-title">Agenda tu Cita</h2>
+            <div class="form-container">
+                <form id="formCita">
+                    <div class="form-group">
+    <label for="nombre">Nombre *</label>
+    <input type="text" id="nombre" required>
+</div>
+<div class="form-group">
+    <label for="apellido">Apellido *</label>
+    <input type="text" id="apellido" required>
+</div>
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico *</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telefono">Teléfono *</label>
+                        <input type="tel" id="telefono" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="doctor">Doctor *</label>
+                        <select id="doctor" required>
+                            <option value="">Selecciona un doctor</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tratamiento">Tratamiento *</label>
+                        <select id="tratamiento" required>
+                            <option value="">Selecciona un tratamiento</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha">Fecha *</label>
+                        <input type="datetime-local" id="fecha" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="notas">Notas adicionales</label>
+                        <textarea id="notas" placeholder="Comentarios o preguntas..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">📋 Reservar Cita</button>
+                </form>
+                <div id="mensajeCita" class="message"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CONTACTO ============ -->
+    <section id="contacto" class="section" style="background:#f0f4f8;">
+        <div class="container">
+            <h2 class="section-title">Contacto</h2>
+            <div style="text-align:center; max-width:500px; margin:0 auto;">
+                <p style="font-size:18px;">📞 <strong>+58 212-555-1234</strong></p>
+                <p style="font-size:18px;">📧 <strong>info@clinicadental.com</strong></p>
+                <p style="font-size:18px;">📍 <strong>Av. Principal, Centro Médico, Piso 3, Caracas</strong></p>
+                <div style="margin-top:20px;">
+                    <a href="#" style="margin:0 10px; font-size:24px; color:#1a237e; text-decoration:none;">📸</a>
+                    <a href="#" style="margin:0 10px; font-size:24px; color:#1a237e; text-decoration:none;">📱</a>
+                    <a href="#" style="margin:0 10px; font-size:24px; color:#1a237e; text-decoration:none;">💬</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ FOOTER ============ -->
+    <footer>
+        <div class="container">
+            <p>🦷 Clínica Dental Premium &copy; 2024 - Todos los derechos reservados</p>
+            <p style="opacity:0.7; font-size:14px; margin-top:5px;">Cuidando tu sonrisa con excelencia</p>
+        </div>
+    </footer>
+
+    <!-- ============ CHATBOT ============ -->
+    <button class="chatbot-toggle" onclick="toggleChatbot()">💬</button>
+    <div id="chatbotWindow" class="chatbot-window">
+        <div class="chatbot-header">
+            <span>🤖 Asistente Virtual</span>
+            <button class="close" onclick="toggleChatbot()">✕</button>
+        </div>
+        <div id="chatbotMessages" class="chatbot-messages">
+            <div class="message bot" style="display:block;">👋 ¡Hola! Soy el asistente de la clínica. ¿Cómo puedo ayudarte hoy?</div>
+        </div>
+        <div class="chatbot-input">
+            <input type="text" id="chatInput" placeholder="Escribe tu mensaje..." onkeypress="if(event.key==='Enter') enviarMensaje()">
+            <button onclick="enviarMensaje()">➤</button>
+        </div>
+    </div>
+
+    <!-- ============ JAVASCRIPT ============ -->
+    <script>
+        // ========================================
+        // CONFIGURACIÓN - CAMBIA ESTO SI ES NECESARIO
+        // ========================================
+        const API_URL = 'http://localhost:3000/api';
+
+        // ========================================
+        // 1. CARGAR DOCTORES DESDE LA BASE DE DATOS
+        // ========================================
+        async function cargarDoctores() {
+            try {
+                const response = await fetch(`${API_URL}/doctores`);
+                const doctores = await response.json();
+                const container = document.getElementById('doctoresContainer');
+
+                if (doctores.length === 0) {
+                    container.innerHTML = '<div style="grid-column:1/-1; text-align:center; color:#666;">No hay doctores registrados aún.</div>';
+                    return;
+                }
+
+                container.innerHTML = doctores.map(doctor => `
+                    <div class="doctor-card">
+                        <div class="avatar">👨‍⚕️</div>
+                        <h3>${doctor.nombre}</h3>
+                        <div class="specialty">${doctor.especialidad || 'Odontólogo General'}</div>
+                        ${doctor.instagram ? `<a href="https://instagram.com/${doctor.instagram.replace('@','')}" target="_blank" class="instagram">📸 ${doctor.instagram}</a>` : ''}
+                    </div>
+                `).join('');
+
+                // También llenar el select del formulario
+                const selectDoctor = document.getElementById('doctor');
+                selectDoctor.innerHTML = '<option value="">Selecciona un doctor</option>';
+                doctores.forEach(doctor => {
+                    selectDoctor.innerHTML += `<option value="${doctor.id}">${doctor.nombre}</option>`;
+                });
+
+            } catch (error) {
+                console.error('Error cargando doctores:', error);
+                document.getElementById('doctoresContainer').innerHTML = `
+                    <div style="grid-column:1/-1; text-align:center; color:#721c24;">
+                        ❌ Error al cargar los doctores. Asegúrate que el servidor esté corriendo.
+                    </div>
+                `;
+            }
+        }
+
+        // ========================================
+        // 2. CARGAR TRATAMIENTOS DESDE LA BASE DE DATOS
+        // ========================================
+        async function cargarTratamientos() {
+            try {
+                const response = await fetch(`${API_URL}/tratamientos`);
+                const tratamientos = await response.json();
+                const container = document.getElementById('tratamientosContainer');
+
+                if (tratamientos.length === 0) {
+                    container.innerHTML = '<div style="grid-column:1/-1; text-align:center; color:#666;">No hay tratamientos registrados aún.</div>';
+                    return;
+                }
+
+                container.innerHTML = tratamientos.map(tratamiento => `
+                    <div class="treatment-card">
+                        <h3>${tratamiento.nombre}</h3>
+                        <p>${tratamiento.descripcion || 'Consulta por más detalles'}</p>
+                        <div class="price">$${tratamiento.precio || '0'}</div>
+                        ${tratamiento.duracion_minutos ? `<small>⏱️ ${tratamiento.duracion_minutos} min</small>` : ''}
+                    </div>
+                `).join('');
+
+                // Llenar el select del formulario
+                const selectTratamiento = document.getElementById('tratamiento');
+                selectTratamiento.innerHTML = '<option value="">Selecciona un tratamiento</option>';
+                tratamientos.forEach(tratamiento => {
+                    selectTratamiento.innerHTML += `<option value="${tratamiento.id}">${tratamiento.nombre} ($${tratamiento.precio})</option>`;
+                });
+
+            } catch (error) {
+                console.error('Error cargando tratamientos:', error);
+                document.getElementById('tratamientosContainer').innerHTML = `
+                    <div style="grid-column:1/-1; text-align:center; color:#721c24;">
+                        ❌ Error al cargar los tratamientos. Asegúrate que el servidor esté corriendo.
+                    </div>
+                `;
+            }
+        }
+
+        // ========================================
+        // 3. ENVIAR FORMULARIO DE CITA
+        // ========================================
+        document.getElementById('formCita').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const mensajeDiv = document.getElementById('mensajeCita');
+            mensajeDiv.className = 'message';
+            mensajeDiv.style.display = 'none';
+
+            const datos = {
+    nombre: document.getElementById('nombre').value,
+    apellido: document.getElementById('apellido').value,  // ← NUEVO
+    email: document.getElementById('email').value,
+    telefono: document.getElementById('telefono').value,
+    doctor_id: parseInt(document.getElementById('doctor').value),
+    tratamiento_id: parseInt(document.getElementById('tratamiento').value),
+    fecha: document.getElementById('fecha').value,
+    notas: document.getElementById('notas').value
+};
+
+            try {
+                const response = await fetch(`${API_URL}/citas`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(datos)
+                });
+
+                const resultado = await response.json();
+
+                if (response.ok) {
+                    mensajeDiv.textContent = '✅ ¡Cita agendada exitosamente! Te contactaremos pronto.';
+                    mensajeDiv.className = 'message success';
+                    mensajeDiv.style.display = 'block';
+                    document.getElementById('formCita').reset();
+                } else {
+                    mensajeDiv.textContent = `❌ Error: ${resultado.error || 'No se pudo agendar la cita'}`;
+                    mensajeDiv.className = 'message error';
+                    mensajeDiv.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                mensajeDiv.textContent = '❌ Error de conexión. Asegúrate que el servidor esté corriendo.';
+                mensajeDiv.className = 'message error';
+                mensajeDiv.style.display = 'block';
+            }
+        });
+
+        // ========================================
+        // 4. CHATBOT
+        // ========================================
+        function toggleChatbot() {
+            const window = document.getElementById('chatbotWindow');
+            window.classList.toggle('open');
+            if (window.classList.contains('open')) {
+                document.getElementById('chatInput').focus();
+            }
+        }
+
+        async function enviarMensaje() {
+    const input = document.getElementById('chatInput');
+    const mensaje = input.value.trim();
+    if (!mensaje) return;
+
+    // Mostrar mensaje del usuario
+    const messagesContainer = document.getElementById('chatbotMessages');
+    const userMsg = document.createElement('div');
+    userMsg.className = 'message user';
+    userMsg.textContent = mensaje;
+    userMsg.style.display = 'block';
+    messagesContainer.appendChild(userMsg);
+
+    input.value = '';
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+    // Mostrar mensaje de "escribiendo..."
+    const botMsg = document.createElement('div');
+    botMsg.className = 'message bot';
+    botMsg.textContent = '⌛ Escribiendo...';
+    botMsg.style.display = 'block';
+    messagesContainer.appendChild(botMsg);
+    messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+    try {
+        // Enviar al servidor con Gemini
+        const response = await fetch(`${API_URL}/chat`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ mensaje: mensaje })
+        });
+
+        const data = await response.json();
+
+        // Actualizar mensaje del bot
+        if (response.ok) {
+            botMsg.textContent = data.respuesta;
+        } else {
+            botMsg.textContent = '❌ Lo siento, tuve un problema técnico. Por favor, intenta de nuevo.';
+        }
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+    } catch (error) {
+        console.error('Error en chat:', error);
+        botMsg.textContent = '📱 Parece que hay problemas de conexión. Puedes agendar tu cita directamente en el formulario de la página.';
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+}
+
+        // ========================================
+        // 6. CARGAR TODOS LOS DATOS AL INICIAR
+        // ========================================
+        document.addEventListener('DOMContentLoaded', () => {
+            cargarDoctores();
+            cargarTratamientos();
+        });
+    </script>
+</body>
+</html>
